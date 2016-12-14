@@ -1,4 +1,4 @@
-package com.iyurenko.cassandra;
+package com.iyurenko.cassandra.config;
 
 import com.datastax.driver.core.Cluster;
 import com.datastax.driver.core.Session;

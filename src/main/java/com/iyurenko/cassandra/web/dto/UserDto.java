@@ -1,55 +1,35 @@
-package com.iyurenko.cassandra;
+package com.iyurenko.cassandra.web.dto;
 
-import com.datastax.driver.core.utils.UUIDs;
 import com.datastax.driver.mapping.annotations.Column;
-import com.datastax.driver.mapping.annotations.PartitionKey;
-import com.datastax.driver.mapping.annotations.Table;
+import com.iyurenko.cassandra.dao.domain.User;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 /**
- * Created by iyurenko on 02.12.16.
+ * Created by iyurenko on 14.12.16.
  */
+public class UserDto implements Serializable {
 
-@Table(keyspace = "healthapp", name = "users_by_login", readConsistency = "LOCAL_QUORUM", writeConsistency = "LOCAL_QUORUM")
-public class UserByLogin {
-
-    @PartitionKey
-    @Column(name = "login")
-    private String login;
-
-    @Column(name = "email")
     private String email;
 
-    @Column(name = "user_id")
+    private String login;
+
     private UUID userId;
 
-    @Column(name = "pass")
-    private String pass;
-
-    @Column(name = "name")
     private String name;
 
-    @Column(name = "surname")
     private String surname;
 
-    @Column(name = "weight")
     private int weight;
 
-    @Column(name = "height")
     private int height;
 
-    @Column(name = "age")
     private int age;
 
+    private String pass;
 
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
+    /* ---------- getters and setters ---------- */
 
     public String getEmail() {
         return email;
@@ -59,20 +39,20 @@ public class UserByLogin {
         this.email = email;
     }
 
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
     public UUID getUserId() {
         return userId;
     }
 
     public void setUserId(UUID userId) {
         this.userId = userId;
-    }
-
-    public String getPass() {
-        return pass;
-    }
-
-    public void setPass(String pass) {
-        this.pass = pass;
     }
 
     public String getName() {
@@ -113,5 +93,13 @@ public class UserByLogin {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public String getPass() {
+        return pass;
+    }
+
+    public void setPass(String pass) {
+        this.pass = pass;
     }
 }

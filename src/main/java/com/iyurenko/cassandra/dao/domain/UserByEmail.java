@@ -1,4 +1,4 @@
-package com.iyurenko.cassandra;
+package com.iyurenko.cassandra.dao.domain;
 
 import com.datastax.driver.mapping.annotations.Column;
 import com.datastax.driver.mapping.annotations.PartitionKey;
@@ -10,7 +10,7 @@ import java.util.UUID;
  * Created by iyurenko on 02.12.16.
  */
 @Table(keyspace = "healthapp", name = "users_by_email", readConsistency = "LOCAL_QUORUM", writeConsistency = "LOCAL_QUORUM")
-public class UserByEmail {
+public class UserByEmail implements User {
 
     @PartitionKey
     @Column(name = "email")
@@ -40,6 +40,7 @@ public class UserByEmail {
     @Column(name = "age")
     private int age;
 
+    /* ---------- getters and setters ---------- */
 
     public String getEmail() {
         return email;

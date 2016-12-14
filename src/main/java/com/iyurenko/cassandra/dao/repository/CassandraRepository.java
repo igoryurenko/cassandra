@@ -1,4 +1,4 @@
-package com.iyurenko.cassandra;
+package com.iyurenko.cassandra.dao.repository;
 
 import com.datastax.driver.core.Cluster;
 import com.datastax.driver.core.ResultSet;
@@ -17,10 +17,10 @@ import javax.annotation.PostConstruct;
 public abstract class CassandraRepository<T> {
 
     @Autowired
-    private Session session;
+    protected Session session;
 
     @Autowired
-    private MappingManager mappingManager;
+    protected MappingManager mappingManager;
 
     protected Mapper<T> mapper;
 
@@ -29,27 +29,22 @@ public abstract class CassandraRepository<T> {
         mapper = mappingManager.mapper(getClazz());
     }
 
-    protected Session getSession() {
-        return session;
+    protected abstract Class<T> getClazz();
+
+    public void save(T object, Mapper.Option... options) {
+        mapper.save(object, options);
     }
 
-    protected void save(T object) {
-        mapper.save(object);
-    }
-
-    protected T get(Object... primaryKey) {
+    public T get(Object... primaryKey) {
         return mapper.get(primaryKey);
     }
 
-    protected void delete(Object... primaryKey) {
+    public void delete(Object... primaryKey) {
         mapper.delete(primaryKey);
     }
 
-    protected void delete(T entity) {
+    public void delete(T entity) {
         mapper.delete(entity);
     }
-
-    protected abstract Class<T> getClazz();
-
 
 }

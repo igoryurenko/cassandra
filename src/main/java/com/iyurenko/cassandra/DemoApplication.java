@@ -1,6 +1,5 @@
 package com.iyurenko.cassandra;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -12,9 +11,8 @@ public class DemoApplication {
 	public static void main(String[] args) {
 		ConfigurableApplicationContext applicationContext = SpringApplication.run(DemoApplication.class, args);
 
-
+/*
 		UserByEmailRepository repository = applicationContext.getBean(UserByEmailRepository.class);
-
 
 		// save a couple of users
 		UserByEmail userByEmail = new UserByEmail();
@@ -28,6 +26,6 @@ public class DemoApplication {
 		System.out.println("--------------------------------");
 		System.out.println(repository.get("fsdfsdfsdf"));
 
-
+*/
 	}
 }
