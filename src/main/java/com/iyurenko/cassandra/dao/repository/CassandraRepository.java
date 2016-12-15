@@ -1,10 +1,6 @@
 package com.iyurenko.cassandra.dao.repository;
 
-import com.datastax.driver.core.Cluster;
-import com.datastax.driver.core.ResultSet;
 import com.datastax.driver.core.Session;
-import com.datastax.driver.core.Statement;
-import com.datastax.driver.core.querybuilder.QueryBuilder;
 import com.datastax.driver.mapping.Mapper;
 import com.datastax.driver.mapping.MappingManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +10,7 @@ import javax.annotation.PostConstruct;
 /**
  * Created by iyurenko on 08.12.16.
  */
-public abstract class CassandraRepository<T> {
+public abstract class CassandraRepository<T, A> {
 
     @Autowired
     protected Session session;
@@ -24,10 +20,15 @@ public abstract class CassandraRepository<T> {
 
     protected Mapper<T> mapper;
 
+    protected A accessor;
+
     @PostConstruct
     private void init() {
         mapper = mappingManager.mapper(getClazz());
+        accessor = mappingManager.createAccessor(getAccessorClazz());
     }
+
+    protected abstract Class<A> getAccessorClazz();
 
     protected abstract Class<T> getClazz();
 

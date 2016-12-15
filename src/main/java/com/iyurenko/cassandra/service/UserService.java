@@ -7,11 +7,13 @@ import com.iyurenko.cassandra.web.dto.UserDto;
  */
 public interface UserService {
 
-    public void saveUser(UserDto userDto);
+    void insertUser(UserDto userDto);
 
-    public UserDto getUserByLogin(String login);
+    void updateUser(UserDto userDto);
 
-    public UserDto getUserByEmail(String email);
+    UserDto getUserByLogin(String login);
+
+    UserDto getUserByEmail(String email);
 
 
 }

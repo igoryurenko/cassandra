@@ -1,6 +1,7 @@
 package com.iyurenko.cassandra.service;
 
 import com.datastax.driver.core.utils.UUIDs;
+import com.datastax.driver.mapping.Mapper;
 import com.iyurenko.cassandra.core.UserToUserDtoConverter;
 import com.iyurenko.cassandra.dao.repository.user.UserByEmailRepository;
 import com.iyurenko.cassandra.dao.repository.user.UserByLoginRepository;
@@ -28,8 +29,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public void saveUser(UserDto userDto) {
-
+    public void insertUser(UserDto userDto) {
         userDto.setUserId(UUIDs.random());
 
         UserByLogin userByLogin = new UserByLogin();
@@ -38,11 +38,22 @@ public class UserServiceImpl implements UserService {
         userToUserDtoConverter.convertFromDto(userDto, userByLogin);
         userToUserDtoConverter.convertFromDto(userDto, userByEmail);
 
-//        userByLoginRepository.save(userByLogin, option);
-//        userByEmailRepository.save(userByEmail, option);
-
         userByLoginRepository.insertUserIfExists(userByLogin);
         userByEmailRepository.insertUserIfExists(userByEmail);
+    }
+
+    @Override
+    public void updateUser(UserDto userDto) {
+        Mapper.Option option = Mapper.Option.timestamp(UUIDs.timeBased().timestamp());
+
+        UserByLogin userByLogin = new UserByLogin();
+        UserByEmail userByEmail = new UserByEmail();
+
+        userToUserDtoConverter.convertFromDto(userDto, userByLogin);
+        userToUserDtoConverter.convertFromDto(userDto, userByEmail);
+
+        userByLoginRepository.save(userByLogin, option);
+        userByEmailRepository.save(userByEmail, option);
     }
 
     @Override
